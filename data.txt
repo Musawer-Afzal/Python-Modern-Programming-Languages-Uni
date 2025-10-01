@@ -1,0 +1,4 @@
+afzal,afzal@gmail.com,98987
+Afzal,afzal@gmail.com,662732
+Mamoor,mamoor@gmail.com,9723242
+Khan,Khan@gmail.com,66723
