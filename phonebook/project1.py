@@ -79,23 +79,37 @@ while True:
             print("Sorry, no record found...")
     elif choice == 4:
         found = False
-        search = input("Enter Contact Name: ").lower()
-        file = open("data.txt", "r")
-        info = file.readlines()
+        search = input("Enter Contact Name to Delete: ").lower()
+
+        # Read all records
+        with open("data.txt", "r") as file:
+            info = file.readlines()
+
+        updated_info = []
         for rec in info:
-            temp = rec.split(",")
+            temp = rec.strip().split(",")
             name = temp[0]
             if name.lower() == search:
                 print("Contact Found.....")
                 print("--------------------")
-                print(f"Name: {name}")
+                print(f"Name: {temp[0]}")
                 print(f"Email: {temp[1]}")
                 print(f"Phone Number: {temp[2]}")
-                found = True
+                confirm = input("Are you sure you want to delete this contact? (y/n): ").lower()
+                if confirm == "y" or confirm == "yes" or confirm == "Yes" or confirm == "Y":
+                    print("Contact Deleted Successfully.")
+                    found = True
+                    continue
+                else:
+                    print("Deletion cancelled.")
+                    updated_info.append(rec.strip() + "\n")
             else:
-                pass
-        file.close()
-        if found == False:
+                updated_info.append(rec.strip() + "\n")
+
+        with open("data.txt", "w") as file:
+            file.writelines(updated_info)
+
+        if not found:
             print("Sorry, no record found...")
     elif choice == 5:
         print("Thank you for using this Application")
@@ -103,4 +117,4 @@ while True:
     else:
         print("Wrong Option Selected")
     input("Press ENTER to continue")
-    # os.system("cls")
+    os.system("cls")
